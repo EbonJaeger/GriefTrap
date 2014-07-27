@@ -1,0 +1,9 @@
+main: me.gnat008.grieftrap.GTMain
+version: 1.0.1
+name: GriefTrap
+author: Gnat008
+
+commands:
+  grieftrap:
+    description: View information and commands from GriefTrap.
+    aliases: [gt]
