@@ -17,10 +17,14 @@
 
 package me.gnat008.grieftrap;
 
+import java.util.HashMap;
 import me.gnat008.grieftrap.Util.Printer;
 import me.gnat008.grieftrap.configs.ConfigManager;
+import me.gnat008.grieftrap.listeners.AsyncPlayerChatListener;
+import me.gnat008.grieftrap.listeners.PlayerInteractListener;
 import me.gnat008.grieftrap.regions.RegionException;
 import me.gnat008.grieftrap.regions.RegionManager;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -34,13 +38,19 @@ public class GTMain extends JavaPlugin {
     private ConfigManager mainConfig;
     private ConfigManager regionConfig;
     
+    public HashMap<String, Integer> playersPerformingCommand;
+    
     @Override
     public void onEnable() {
         this.printer = new Printer(this);
+        this.playersPerformingCommand = new HashMap<String, Integer>();
         
-        // TODO: Set CommandExecutor
+        // TODO: Set the CommandExecutor
+        getCommand("grieftrap").setExecutor(this);
         
-        //TODO: Register Listeners
+        // Register Listeners
+        getServer().getPluginManager().registerEvents(new AsyncPlayerChatListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         
         // Load/create config files
         // TODO: Plugin configuration file
@@ -71,5 +81,9 @@ public class GTMain extends JavaPlugin {
     
     public Printer getPrinter() {
         return this.printer;
+    }
+    
+    public boolean hasPermission(Player player, String node) {
+        return player.hasPermission("grieftrap." + node);
     }
 }

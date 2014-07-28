@@ -88,6 +88,10 @@ public class RegionManager {
         }
     }
     
+    public HashMap<String, ProtectedRegion> getRegions() {
+        return this.regions;
+    }
+    
     /**
      * Adds a member to the region so they can build in it.
      * 
