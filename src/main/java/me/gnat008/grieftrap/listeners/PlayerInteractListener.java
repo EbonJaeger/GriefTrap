@@ -60,9 +60,7 @@ public class PlayerInteractListener implements Listener {
             plugin.playersPerformingCommand.put(player.getUniqueId().toString(), 3);
         }
         
-        if (plugin.playersPerformingCommand.containsKey(player.getUniqueId().toString()) && 
-                plugin.playersPerformingCommand.get(player.getUniqueId().toString()) == 3 && 
-                pt1 != null && pt2 != null) {
+        if (pt1 != null && pt2 != null) {
             List<Location> pts = new ArrayList<Location>();
             pts.add(pt1);
             pts.add(pt2);
