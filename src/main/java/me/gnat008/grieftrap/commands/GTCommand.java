@@ -86,10 +86,6 @@ public class GTCommand implements CommandExecutor {
         
         // Execute the correct command
         switch(subCommand) {
-            case HELP:
-                showHelp(player);
-                return true;
-                
             case ADD:
                 if (args.length != 3) {
                     plugin.getPrinter().printToPlayer(player, "Wrong number of arguments! See /gt help for help", true);
@@ -222,12 +218,12 @@ public class GTCommand implements CommandExecutor {
         
         player.sendMessage(ChatColor.GREEN + "Regions: (page " + (page + 1) + " of " + pages + ")");
         if (page < pages) {
-            for (int i = page * pageSize; i < page * pageSize; i++) {
+            for (int i = page * pageSize; i < page * pageSize + pageSize; i++) {
                 if (i >= pageSize) {
                     break;
                 }
                 
-                player.sendMessage(ChatColor.AQUA + regions.get(i));
+                player.sendMessage(ChatColor.AQUA + regions.get(i - 1));
             }
         }
     }

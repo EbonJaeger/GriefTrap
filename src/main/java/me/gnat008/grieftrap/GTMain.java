@@ -19,6 +19,7 @@ package me.gnat008.grieftrap;
 
 import java.util.HashMap;
 import me.gnat008.grieftrap.Util.Printer;
+import me.gnat008.grieftrap.commands.GTCommand;
 import me.gnat008.grieftrap.configs.ConfigManager;
 import me.gnat008.grieftrap.listeners.AsyncPlayerChatListener;
 import me.gnat008.grieftrap.listeners.PlayerInteractListener;
@@ -45,8 +46,8 @@ public class GTMain extends JavaPlugin {
         this.printer = new Printer(this);
         this.playersPerformingCommand = new HashMap<String, Integer>();
         
-        // TODO: Set the CommandExecutor
-        getCommand("grieftrap").setExecutor(this);
+        // Set the CommandExecutor
+        getCommand("grieftrap").setExecutor(new GTCommand(this));
         
         // Register Listeners
         getServer().getPluginManager().registerEvents(new AsyncPlayerChatListener(this), this);
@@ -84,6 +85,6 @@ public class GTMain extends JavaPlugin {
     }
     
     public boolean hasPermission(Player player, String node) {
-        return player.hasPermission("grieftrap." + node);
+        return player.hasPermission("grieftrap." + node.toLowerCase());
     }
 }

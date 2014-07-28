@@ -46,27 +46,27 @@ public class PlayerInteractListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        Location pt1 = null;
-        Location pt2 = null;
+        List<Location> clickedPoints;
         if (plugin.playersPerformingCommand.containsKey(player.getUniqueId().toString()) && 
                 plugin.playersPerformingCommand.get(player.getUniqueId().toString()) == 1) {
-            pt1 = event.getClickedBlock().getLocation();
-            plugin.playersPerformingCommand.put(player.getUniqueId().toString(), 2);
+            clickedPoints = new ArrayList<Location>();
+            clickedPoints.add(event.getClickedBlock().getLocation());
             
+            points.put(player.getUniqueId().toString(), clickedPoints);
+            
+            plugin.playersPerformingCommand.put(player.getUniqueId().toString(), 2);
             plugin.getPrinter().printToPlayer(player, "Click another block to select the second point.", false);
         } else if (plugin.playersPerformingCommand.containsKey(player.getUniqueId().toString()) && 
                 plugin.playersPerformingCommand.get(player.getUniqueId().toString()) == 2) {
-            pt2 = event.getClickedBlock().getLocation();
-            plugin.playersPerformingCommand.put(player.getUniqueId().toString(), 3);
-        }
-        
-        if (pt1 != null && pt2 != null) {
-            List<Location> pts = new ArrayList<Location>();
-            pts.add(pt1);
-            pts.add(pt2);
-            points.put(player.getUniqueId().toString(), pts);
+            clickedPoints = points.get(player.getUniqueId().toString());
+            clickedPoints.add(event.getClickedBlock().getLocation());
             
-            plugin.getPrinter().printToPlayer(player, "Type a name in chat to set the region ID.", false);
+            points.put(player.getUniqueId().toString(), clickedPoints);
+            
+            if (clickedPoints.size() == 2) {
+                plugin.playersPerformingCommand.put(player.getUniqueId().toString(), 3);
+                plugin.getPrinter().printToPlayer(player, "Type a name in chat to set the region ID.", false);
+            }
         }
     }
 }

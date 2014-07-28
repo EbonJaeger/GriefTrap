@@ -58,17 +58,12 @@ public class ConfigManager {
         fileConfiguration = YamlConfiguration.loadConfiguration(configFile);
         
         // Looks for defaults in the Jar
-        Reader configStream;
-        try {
-            configStream = new InputStreamReader(plugin.getResource(filename), "UTF8");
+        if (plugin.getResource(filename) != null) {
+            Reader configStream = new InputStreamReader(plugin.getResource(filename));
             if (configStream != null) {
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(configStream);
                 fileConfiguration.setDefaults(defConfig);
-                
-                configStream.close();
             }
-        } catch (IOException ex) {
-            plugin.getLogger().log(Level.SEVERE, "There was a problem: " + ex.getMessage());
         }
     }
     

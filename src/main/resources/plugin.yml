@@ -7,3 +7,29 @@ commands:
   grieftrap:
     description: View information and commands from GriefTrap.
     aliases: [gt]
+    
+permissions:
+  grieftrap.*:
+    default: op
+    children:
+      grieftrap.add: true
+      grieftrap.define: true
+      grieftrap.info: true
+      grieftrap.list: true
+      grieftrap.reload: true
+      grieftrap.remove: true
+      grieftrap.undefine: true
+  grieftrap.add:
+    default: false
+  grieftrap.define:
+    default: false
+  grieftrap.info:
+    default: true
+  grieftrap.list:
+    default: true
+  grieftrap.reload:
+    default: false
+  grieftrap.remove:
+    default: false
+  grieftrap.undefine:
+    default: false
